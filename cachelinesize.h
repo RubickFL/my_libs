@@ -24,7 +24,7 @@ size_t get_cache_line_size();
 
 #ifdef __APPLE__
 #include <sys/sysctl.h>
-size_t get_ccache_line_size()
+size_t get_cache_line_size()
 {
     size_t line_size;
     size_t sizeof_line_size = sizeof( line_size );
