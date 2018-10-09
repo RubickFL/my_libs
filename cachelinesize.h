@@ -27,8 +27,7 @@ size_t get_cache_line_size();
 size_t get_cache_line_size()
 {
     size_t line_size;
-    size_t sizeof_line_size = sizeof( line_size );
-    sysctlbyname( "hw.cachelinesize", &line_size, &sizeof_line_size, 0, 0 );
+    sysctlbyname( "hw.cachelinesize", &line_size, sizeof(line_size), 0, 0 );
     return line_size;
 }
 #endif
@@ -74,7 +73,7 @@ size_t get_cache_line_size()
     FILE *p;
     p = fopen( "/sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size", "r" );
     unsigned int i;
-    if ( p )
+    if( p )
     {
         fscanf( p, "%d", &i );
         fclose( p );
