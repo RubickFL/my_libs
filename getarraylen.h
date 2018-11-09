@@ -1,5 +1,5 @@
 /*
-	Library name: <cachelinesize.h>
+	Library name: <getarraylen.h>
         Author: Rub!ck
 
 
