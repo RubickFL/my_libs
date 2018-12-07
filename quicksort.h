@@ -4,7 +4,14 @@
 
 
         Description:
-	*Just use quickSort( array_of_signed_elements, 0, count_of_array ) and the function sort it very fast!
+	*Just use quickSort( signed_elements_array, 0, count_of_array ) and the function sort it very fast!
+
+
+	Example:
+	int main(void) {
+		int arr[5] = {100, 5, 14, 3, 91};
+		quickSort(arr, 0, 5);
+	}
 */
 
 

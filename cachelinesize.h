@@ -10,6 +10,13 @@
 	The library itself will be adjusted to the desired OS.
 	If the OS is not initialized, the library will abort the compilation and display an error message.
 	Good luck, bro :)
+
+
+	Example:
+	int main(void) {
+		cout << "Cache line size in you PC: " << get_cache_line_size() << endl;
+		return 0;
+	}
 */
 
 
@@ -27,7 +34,8 @@ size_t get_cache_line_size();
 size_t get_cache_line_size()
 {
     size_t line_size;
-    sysctlbyname( "hw.cachelinesize", &line_size, sizeof(line_size), 0, 0 );
+    size_t sizeof_line_size = sizeof( line_size );
+    sysctlbyname( "hw.cachelinesize", &line_size, &sizeof_line_size, 0, 0 );
     return line_size;
 }
 #endif
@@ -73,7 +81,7 @@ size_t get_cache_line_size()
     FILE *p;
     p = fopen( "/sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size", "r" );
     unsigned int i;
-    if( p )
+    if ( p )
     {
         fscanf( p, "%d", &i );
         fclose( p );

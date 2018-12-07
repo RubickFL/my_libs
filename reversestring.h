@@ -1,12 +1,19 @@
 /*
-	Library name: <cachelinesize.h>
-	Author: Rub!ck
-	
-	
-	Description:
-	Just use reverseString( your_std::string ) and function reverse it!
-*/
+        Library name: <reversestring.h>
+        Author: Rub!ck
 
+
+        Description:
+        Just use function reverseString(string) and it reverse it!
+
+
+        Example:
+        int main(void) {
+                string str = "EXAMPLE";
+		cout << "Reverse 'example' is: " << reverseString(str) << endl;
+                return 0;
+        }
+*/
 
 
 
@@ -23,5 +30,6 @@ void reverseString( std::string &str ){
 		str[j] = tmp;
 	}
 }
+
 
 #endif // REVERSESTRING
