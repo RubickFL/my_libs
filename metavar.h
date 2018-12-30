@@ -1,3 +1,14 @@
+/*
+	Library name: <metavar.h>
+	Author: Rub!ck
+
+	Description:
+	Just runtime meta variable class.
+	Good luck, bro :)
+*/
+
+
+
 #ifndef META_VARIABLE
 #define META_VARIABLE
 
