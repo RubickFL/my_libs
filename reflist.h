@@ -16,16 +16,21 @@
 
 
 #ifndef REFLIST
-#define REFLIST
+#define REFLIST RefList<TMP>
 
 
 
 template<typename TMP>
+
 class RefList {
 public:
-	RefList<TMP>* next;
+	// headder
+	REFLIST* next;
 	TMP content;
 
+
+
+	// construct and smart destruct
 	RefList(TMP a) {
                 content = a;
         }
@@ -37,11 +42,72 @@ public:
 	}
 
 
-	void newElement(TMP a) {
-		RefList<TMP>* p = this;
-		while (p->next != NULL)
+
+	// iterators
+	REFLIST* first() {
+                return this;
+        }
+
+
+	REFLIST* last() {
+		REFLIST* p = first();
+                while (p->next != NULL)
+                        p = p->next;
+		return p;
+	}
+
+
+
+	// elements methods
+	int count() {
+		REFLIST* p = first();
+		int i = 1;
+                for (;p->next != NULL; ++i)
+                        p = p->next;
+
+		return i;
+	}
+
+
+	void add(TMP a) {
+		(last())->next = new REFLIST(a);
+	}
+
+
+	REFLIST* at(int index) {
+		REFLIST* p = first;
+		for (;index > 0 && p->next != NULL; --index) {
 			p = p->next;
-		p->next = new RefList<TMP>(a);
+		}
+
+		if (index == 0)
+			return p;
+
+		return NULL;
+	}
+
+
+	REFLIST* findElement(REFLIST* elem) {
+		REFLIST* p = first();
+                while (p->next != elem && p->next != NULL)
+                        p = p->next;
+
+                if (p == elem)
+			return p;
+
+		return NULL;
+	}
+
+
+	REFLIST* findContent(TMP a) {
+		REFLIST* p = first();
+                while (p->next != NULL && p->content != a)
+                        p = p->next;
+
+		if (p->content == a)
+                	return p;
+
+		return NULL;
 	}
 };
 
