@@ -64,7 +64,7 @@ uint8_t gmult(uint8_t a, uint8_t b) {
 		b >>= 1;
 
 		if (hbs)
-			a ^= 0x1b; // 0000 0001 0001 1011	
+			a ^= 0x1b; // 0000 0001 0001 1011
 	}
 
 	return p;
@@ -92,12 +92,9 @@ void coef_mult(register uint8_t *a, register uint8_t *b, register uint8_t *d) {
 
 
 
-int K;
-int Nb = 4;
-int Nk;
-int Nr;
+int K, Nk, Nr, Nb = 4;
 
-static uint8_t s_box[256] = {
+const uint8_t s_box[256] = {
 	// 0     1     2     3     4     5     6     7     8     9     a     b     c     d     e     f
 	0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76, // 0
 	0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0, // 1
@@ -117,7 +114,7 @@ static uint8_t s_box[256] = {
 	0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16};// f
 
 
-static uint8_t inv_s_box[256] = {
+const uint8_t inv_s_box[256] = {
 	// 0     1     2     3     4     5     6     7     8     9     a     b     c     d     e     f
 	0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb, // 0
 	0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb, // 1
@@ -137,8 +134,8 @@ static uint8_t inv_s_box[256] = {
 	0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d};// f
 
 
-uint8_t R[] = {0x02, 0x00, 0x00, 0x00}; 
-uint8_t * Rcon(register uint8_t i) {
+uint8_t R[] = {0x02, 0x00, 0x00, 0x00};
+uint8_t* Rcon(register uint8_t i) {
 	if (i == 1) {
 		R[0] = 0x01; // x^(1-1) = x^0 = 1
 	} else if (i > 1) {
@@ -149,15 +146,15 @@ uint8_t * Rcon(register uint8_t i) {
 			--i;
 		}
 	}
-	
+
 	return R;
 }
 
 
 
-void add_round_key(uint8_t *state, uint8_t *w, uint8_t r) {	
+void add_round_key(uint8_t *state, uint8_t *w, uint8_t r) {
 	for (register uint8_t c = 0; c < Nb; ++c)
-		state[Nb*c+c] = state[Nb*c+c]^w[4*Nb*r+4*c+c];   //debug, so it works for Nb !=4 
+		state[Nb*c+c] = state[Nb*c+c]^w[4*Nb*r+4*c+c];   //debug, so it works for Nb !=4
 
 	return;
 }
@@ -213,7 +210,7 @@ void shift_rows(uint8_t *state) {
 		j = 0;
 		while (j < i) {
 			tmp = state[Nb*i+0];
-			
+
 			for (col[0] = 1; col[0] < Nb; ++col[0])
 				state[Nb*i+col[0]-1] = state[Nb*i+col[0]];
 
@@ -232,7 +229,7 @@ void inv_shift_rows(uint8_t *state) {
 		j = 0;
 		while (j < i) {
 			tmp = state[Nb*i+Nb-1];
-			
+
 			for (col[0] = Nb-1; col[0] > 0; --col[0])
 				state[Nb*i+col[0]] = state[Nb*i+col[0]-1];
 
@@ -397,4 +394,4 @@ void aes_decrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 
 
 
-#endif
+#endif // AES
