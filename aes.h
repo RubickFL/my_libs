@@ -5,12 +5,12 @@
 
         Description:
 	*Super AES crypto.
-	*You need to preproc #define AES_KEY_LEN 16/32
 
 
 	Example:
 	int main(void) {
-		uint8_t key[] = {
+		// key should be 32 byte len
+		uint8_t key[32] = {
                 0x00, 0x01, 0x02, 0x03,
                 0x04, 0x05, 0x06, 0x07,
                 0x08, 0x09, 0x0a, 0x0b,
@@ -20,19 +20,23 @@
                 0x18, 0x19, 0x1a, 0x1b,
                 0x1c, 0x1d, 0x1e, 0x1f};
 
+		// text to encrypt should be 16 byte len
         	uint8_t buf[16] = {
                 0x41, 0x41, 0x41, 0x41,
                 0x41, 0x41, 0x41, 0x41,
                 0x41, 0x41, 0x41, 0x41,
                 0x41, 0x41, 0x41, 0x41
                 };
-		// (AAAAAAAAAAAAAAAA (16xA))
+		// (AAAAAAAAAAAAAAAA)
 
 		uint8_t *initedKey = aes_init(key);
 
+		// read text from buf and put encrypted in buf, with initedKey as encrypt key
 		aes_encrypt(buf, buf, initedKey);
-		// encrypted text (�  7 � � � � s X � Q |�  7 � � � �) in buf
+		// encrypted text (�7����sX�Q|�7����) in buf
 
+
+		// read encrypted text from buf and put decrypted in buf, with initedKey as decrypt key
 		aes_decrypt(buf, buf, initedKey);
 		// decrypted text (AAAAAAAAAAAAAAAA) in buf
 	}
