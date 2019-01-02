@@ -5,6 +5,7 @@
 
         Description:
 	*Super AES crypto.
+	*You need to preproc #define AES_KEY_LEN 16/32
 
 
 	Example:
@@ -39,6 +40,8 @@
 
 
 
+#ifndef AES
+#define AES
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -322,11 +325,11 @@ uint8_t* aes_keyExpansion(uint8_t *key, uint8_t *w) {
 
 
 
-uint8_t* aes_init(uint8_t *key) {
+uint8_t* aes_initKey(uint8_t *key) {
 	Nk = 8;
 	Nr = 14;
 
-	return aes_keyExpansion(key, malloc(Nb*(15)*4));
+	return aes_keyExpansion(key, (uint8_t*)malloc(Nb*(15)*4));
 }
 
 
@@ -387,3 +390,7 @@ void aes_decrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 
 	return;
 }
+
+
+
+#endif
