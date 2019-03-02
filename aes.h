@@ -29,15 +29,15 @@
                 };
 		// (AAAAAAAAAAAAAAAA)
 
-		uint8_t *initedKey = aes_init(key);
+		uint8_t *initedKey = aes::init(key);
 
 		// read text from buf and put encrypted in buf, with initedKey as encrypt key
-		aes_encrypt(buf, buf, initedKey);
+		aes::encrypt(buf, buf, initedKey);
 		// encrypted text (�7����sX�Q|�7����) in buf
 
 
 		// read encrypted text from buf and put decrypted in buf, with initedKey as decrypt key
-		aes_decrypt(buf, buf, initedKey);
+		aes::decrypt(buf, buf, initedKey);
 		// decrypted text (AAAAAAAAAAAAAAAA) in buf
 	}
 */
@@ -49,7 +49,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdlib.h>
-
+namespace aes {
 
 
 uint8_t gmult(uint8_t a, uint8_t b) {
@@ -326,7 +326,7 @@ uint8_t* aes_keyExpansion(uint8_t *key, uint8_t *w) {
 
 
 
-uint8_t* aes_initKey(uint8_t *key) {
+uint8_t* initKey(uint8_t *key) {
 	Nk = 8;
 	Nr = 14;
 
@@ -335,7 +335,7 @@ uint8_t* aes_initKey(uint8_t *key) {
 
 
 
-void aes_encrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
+void encrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 	uint8_t state[4*Nb], r;
 
 	for (i = 0; i < 4; ++i)
@@ -364,7 +364,7 @@ void aes_encrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 
 
 
-void aes_decrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
+void decrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 	uint8_t state[4*Nb];
 	uint8_t r;
 
@@ -393,5 +393,5 @@ void aes_decrypt(uint8_t *in, uint8_t *out, uint8_t *w) {
 }
 
 
-
+}
 #endif // AES
